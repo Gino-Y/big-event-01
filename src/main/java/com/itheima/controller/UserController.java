@@ -7,7 +7,9 @@ import com.itheima.utils.JwtUtil;
 import com.itheima.utils.Md5Util;
 import com.itheima.utils.ThreadLocalUtil;
 import jakarta.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.URL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -92,11 +94,37 @@ public class UserController {
     }
 
     @PatchMapping("/updateAvatar")
-    public Result updateAvatar(@RequestParam String avatarUrl){
+    public Result updateAvatar(@RequestParam @URL String avatarUrl){
         userService.updateAvatar(avatarUrl);
         return Result.success();
     }
 
+    @PatchMapping("/updatePwd")
+    public Result updatePwd(@RequestBody Map<String,String> params){
+        //1、校验参数
+        String oldPwd = params.get("old_pwd");
+        String newPwd = params.get("new_pwd");
+        String rePwd = params.get("re_pwd");
+        if(!StringUtils.hasLength(oldPwd) || !StringUtils.hasLength(newPwd) || !StringUtils.hasLength(rePwd)){
+            return Result.error("缺少必要的参数");
+        }
+        //原密码是否正确
+        //调用userService根据用户名查询当前密码，再和oldPwd比较
+        Map<String, Object> map = ThreadLocalUtil.get();
+        String username = (String)map.get("username");
+        User loginUser = userService.findByUserName(username);
+        if(!Md5Util.getMD5String(oldPwd).equals(loginUser.getPassword())){
+            return Result.error("原密码不正确");
+        }
+
+        //newPwd和rePwd是否一致
+        if(!newPwd.equals(rePwd)){
+            return Result.error("两次输入的密码不一致");
+        }
+        //2、调用service完成修改密码
+        userService.updatePwd(newPwd);
+        return Result.success();
+    }
 
 
 
