@@ -5,3 +5,7 @@ spring:
     url: jdbc:mysql://47.241.35.150:3306/big_event
     username: root
     password: Kadfgo53254G
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql语句
+    map-underscore-to-camel-case: true # 开启下划线转小驼峰

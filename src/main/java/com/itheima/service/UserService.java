@@ -11,5 +11,9 @@ public interface UserService {
 
     void register(String username, String password);
 
-    User findByUsername(String username);
+    // 修改用户信息
+    void update(User user);
+
+    // 修改头像
+    void updateAvatar(String avatarUrl);
 }
