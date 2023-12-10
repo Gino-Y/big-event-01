@@ -1,5 +1,6 @@
-
 spring:
+  profiles:
+    active: dev
   data:
     redis:
       host: localhost
@@ -13,3 +14,20 @@ mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 打印sql语句
     map-underscore-to-camel-case: true # 开启下划线转小驼峰
+---
+spring:
+  config:
+    activate:
+      on-profile: dev # 激活dev环境
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test # 激活test环境
+
+---
+spring:
+  config:
+    activate:
+      on-profile: pro # 激活pro环境
