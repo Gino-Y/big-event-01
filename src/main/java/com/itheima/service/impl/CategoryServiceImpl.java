@@ -50,4 +50,9 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdateTime(LocalDateTime.now());
         categoryMapper.update(category);
     }
+
+    @Override
+    public void delete(Integer id) {
+        categoryMapper.delete(id);
+    }
 }
