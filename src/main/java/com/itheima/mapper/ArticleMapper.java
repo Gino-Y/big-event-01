@@ -1,8 +1,10 @@
 package com.itheima.mapper;
 
 import com.itheima.pojo.Article;
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -14,5 +16,14 @@ public interface ArticleMapper {
             " values(#{title},#{content},#{coverImg},#{state},#{categoryId},#{createUser},#{createTime},#{updateTime})")
     void add(Article article);
 
+    // 查询文章列表
     List<Article> list(Integer userId, String categoryId, String state);
+
+    // 修改文章
+    @Update("update article set title=#{title},content=#{content},cover_img=#{coverImg},state=#{state},category_id=#{categoryId},update_time=now() where id=#{id}")
+    void update(Article article);
+
+    // 删除文章
+    @Delete("delete from article where id=#{id}")
+    void delete(Integer id);
 }

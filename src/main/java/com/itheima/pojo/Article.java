@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article {
+    @NotNull
     private Integer id;
     @NotEmpty
     @Pattern(regexp="^\\S{1,10}$", message = "标题长度为1-10个字符")

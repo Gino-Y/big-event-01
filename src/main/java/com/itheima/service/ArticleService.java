@@ -9,4 +9,10 @@ public interface ArticleService {
 
     // 查询文章列表
     PageBean<Article> list(Integer pageNum, Integer pageSize, String categoryId, String state);
+
+
+    // 修改文章
+    void update(Article article);
+
+    void delete(Integer id);
 }
