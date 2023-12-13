@@ -16,6 +16,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
+    //-----------所有校验已经在interceptors/LoginInterceptor.java  这个拦截器中完成，所以这里和别的接口中都不需要再写校验了----------------
 //    @GetMapping("/list")
 //    public Result<String> list(/*@RequestHeader(name="Authorization") String token, HttpServletResponse response*/) {
 ////        // 验证token
